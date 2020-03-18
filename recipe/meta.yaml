@@ -12,8 +12,8 @@ source:
 
 build:
   skip: True  # [py27 or win]
-  number: 1000
-  script: python -m pip install --no-deps --ignore-installed .
+  number: 1001
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   build:
