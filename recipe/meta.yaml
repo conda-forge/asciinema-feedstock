@@ -12,11 +12,11 @@ source:
 
 build:
   skip: True  # [py27 or win]
-  number: 1002
+  number: 1003
   script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
-  build:
+  host:
     - python
     - pip
   run:
