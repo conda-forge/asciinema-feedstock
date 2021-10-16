@@ -1,5 +1,5 @@
 {% set name = "asciinema" %}
-{% set version = "2.0.2" %}
+{% set version = "2.1.0" %}
 
 package:
   name: {{ name|lower }}
@@ -8,15 +8,15 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 32f2c1a046564e030708e596f67e0405425d1eca9d5ec83cd917ef8da06bc423
+  sha256: 7bdb358c1f6d61b07169c5476b2f9607ce66da12e78e4c17b7c898d72402cddc
 
 build:
-  skip: True  # [py27 or win]
-  number: 1002
+  skip: true  # [py27 or win]
+  number: 0
   script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
-  build:
+  host:
     - python
     - pip
   run:
@@ -34,8 +34,8 @@ about:
   home: https://asciinema.org
   license: GPL-3.0
   license_family: GPL
-  license_file: '{{ environ["RECIPE_DIR"] }}/LICENSE'
-  summary: 'Terminal session recorder and the best companion of asciinema.org.'
+  license_file: {{ environ["RECIPE_DIR"] }}/LICENSE
+  summary: Terminal session recorder and the best companion of asciinema.org.
 
   description: |
     asciinema lets you easily record terminal sessions and replay
