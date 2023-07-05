@@ -1,11 +1,11 @@
-About asciinema
-===============
+About asciinema-feedstock
+=========================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/asciinema-feedstock/blob/main/LICENSE.txt)
 
 Home: https://asciinema.org
 
 Package license: GPL-3.0-or-later
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/asciinema-feedstock/blob/main/LICENSE.txt)
 
 Summary: Terminal session recorder and the best companion of asciinema.org.
 
