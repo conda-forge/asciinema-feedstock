@@ -1,5 +1,5 @@
 {% set name = "asciinema" %}
-{% set version = "2.3.0" %}
+{% set version = "2.4.0" %}
 
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/asciinema-{{ version }}.tar.gz
-  sha256: db8b056c00e9bbb2751c958298b522518c4bd80326d90bedab7f8943c7a494d5
+  sha256: 828e04c36ba622a7b8f8f912c8f0c1329538b6c7ed1c0d1b131bbbfe3a221707
 
 build:
   number: 0
@@ -19,10 +19,10 @@ build:
 
 requirements:
   host:
-    - python >=3.6
+    - python >=3.7
     - pip
   run:
-    - python >=3.6
+    - python >=3.7
 
 test:
   imports:
