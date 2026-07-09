@@ -23,8 +23,15 @@ build:
       CARGO_PROFILE_RELEASE_STRIP: symbols
       CARGO_PROFILE_RELEASE_LTO: fat
     content:
-      - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path .
+      # build.rs generates man pages and shell completions into ASCIINEMA_GEN_DIR
+      - export ASCIINEMA_GEN_DIR=$SRC_DIR/generated
+      - cargo auditable install --locked --no-track --bins --root $PREFIX --path .
       - cargo-bundle-licenses --format yaml --output ./THIRDPARTY.yml
+      - mkdir -p $PREFIX/share/man/man1 $PREFIX/share/bash-completion/completions $PREFIX/share/zsh/site-functions $PREFIX/share/fish/vendor_completions.d
+      - install -m 644 $ASCIINEMA_GEN_DIR/man/*.1 $PREFIX/share/man/man1/
+      - install -m 644 $ASCIINEMA_GEN_DIR/completion/asciinema.bash $PREFIX/share/bash-completion/completions/asciinema
+      - install -m 644 $ASCIINEMA_GEN_DIR/completion/_asciinema $PREFIX/share/zsh/site-functions/_asciinema
+      - install -m 644 $ASCIINEMA_GEN_DIR/completion/asciinema.fish $PREFIX/share/fish/vendor_completions.d/asciinema.fish
 
 requirements:
   build:
@@ -41,6 +48,11 @@ tests:
   - package_contents:
       bin:
         - asciinema
+      files:
+        - share/man/man1/asciinema*.1
+        - share/bash-completion/completions/asciinema
+        - share/zsh/site-functions/_asciinema
+        - share/fish/vendor_completions.d/asciinema.fish
       strict: true
 
 about:
