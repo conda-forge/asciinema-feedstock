@@ -1,8 +1,13 @@
 bot:
-  inspection: update-grayskull
+  inspection: update-source
+conda_build_tool: rattler-build
+conda_install_tool: pixi
 conda_forge_output_validation: true
 github:
   branch_name: main
   tooling_branch_name: main
+provider:
+  linux_aarch64: default
+  osx_arm64: default
 conda_build:
   pkg_format: '2'

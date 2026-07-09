@@ -1,0 +1,63 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+
+schema_version: 1
+
+context:
+  version: "3.2.1"
+
+package:
+  name: asciinema
+  version: ${{ version }}
+
+source:
+  url: https://github.com/asciinema/asciinema/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: e7e49a09c664a76afc5bc25ca09871eb090bfbe68a2ddbc72750d3cb215d36f1
+
+build:
+  number: 0
+  # asciinema requires a POSIX terminal and does not support Windows
+  skip: win
+
+  script:
+    env:
+      CARGO_PROFILE_RELEASE_STRIP: symbols
+      CARGO_PROFILE_RELEASE_LTO: fat
+    content:
+      - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path .
+      - cargo-bundle-licenses --format yaml --output ./THIRDPARTY.yml
+
+requirements:
+  build:
+    - ${{ stdlib('c') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('rust') }}
+    - cargo-bundle-licenses
+    - cargo-auditable
+
+tests:
+  - script:
+      - asciinema --version
+      - asciinema --help
+  - package_contents:
+      bin:
+        - asciinema
+      strict: true
+
+about:
+  homepage: https://asciinema.org
+  summary: Terminal session recorder, streamer, and player
+  description: |
+    asciinema lets you easily record terminal sessions, replay
+    them in a terminal as well as in a web browser, and stream
+    them live to viewers.
+  license: GPL-3.0-or-later
+  license_file:
+    - LICENSE
+    - THIRDPARTY.yml
+  documentation: https://docs.asciinema.org
+  repository: https://github.com/asciinema/asciinema
+
+extra:
+  recipe-maintainers:
+    - sodre
+    - ocefpaf
